@@ -8,3 +8,7 @@ development:
 
 production:
   <<: *default
+  host: dpg-cnasoa6n7f5s73em4nq0-a
+  database: databasedatabase
+  username: databasedatabase_user
+  password: EOc6CLp35iq1X2arHTSN4BfEzW3fVrCp
