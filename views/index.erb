@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatYouKnowAboutToday</title>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
   <script>
 
@@ -42,28 +43,29 @@
       });
 
     </script>
-  <title>my calender</title>
 </head>
 <body>
   <% if !current_user.nil? %>
-    <li>こんにちは、<%= current_user.name %>さん</li>
-    <li><a href="/signout">ログアウト</a></li>
     <div>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.event %></td>
-        <td><%= task.ymd %></td>
-        <td><%= task.category %></td>
-      </tr><br>
-    <% end %>
+    こんにちは、<%= current_user.name %>さん
+    <a href="/signout">ログアウト</a>
+    </div>
+    <div>
+    <!--<% @tasks.each do |task| %>-->
+    <!--  <tr>-->
+    <!--    <td><%= task.event %></td>-->
+    <!--    <td><%= task.ymd %></td>-->
+    <!--    <td><%= task.category %></td>-->
+    <!--  </tr><br>-->
+    <!--<% end %>-->
     <tr>
       <td colspan="7"><a href="/tasks/new">出来事登録</a></td>
     </tr>
     </div>
     <div id='calendar'></div>
   <% else %>
-    <li><a href="/signin">ログイン</a></li>
-    <li><a href="/signup">新規登録</a></li>
+    <a href="/signin">ログイン</a><br>
+    <a href="/signup">新規登録</a>
   <% end %>
 </body>
 </html>

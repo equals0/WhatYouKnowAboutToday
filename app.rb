@@ -3,6 +3,7 @@ Bundler.require
 require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
 require './models.rb'
+require 'json'
 enable :sessions
 
 helpers do
@@ -30,7 +31,7 @@ get '/events' do
         #     {
         #         id: event.id,
         #         title: event.event,
-        #         start: "2000-1-1"
+        #         start: "2024-2-28"
         #     }
         # end
     future_years_count = 1000
@@ -38,14 +39,30 @@ get '/events' do
 
     (0..future_years_count).each do |offset|
         year = current_year + offset
-
-        formatted_current_year_events = events.map do |event|
-            {
-                id: event.id,
-                title: event.event,
-                start: "#{year}-#{event.ymd.strftime('%m-%d')}"
-            }
-        end
+      
+            formatted_current_year_events = events.map do |event|
+                if event.category=="nocategory"
+                    backcolor = 'dimgray'
+                elsif event.category=="incident"
+                    backcolor = 'blue'
+                elsif event.category=="birthday"
+                    backcolor = 'limegreen'
+                elsif event.category=="deathday"
+                    backcolor = 'forestgreen'
+                elsif event.category=="personal"
+                    backcolor = 'orange'
+                end
+                
+                {
+                    id: event.id,
+                    title: "#{event.event} #{event.ymd.strftime('%Y')}年",
+                    start: "#{year}-#{event.ymd.strftime('%m-%d')}",
+                    url: "/#{event.id}/edit",
+                    backgroundColor: backcolor,
+                    borderColor: backcolor
+                }
+            end
+     
 
         formatted_events.concat(formatted_current_year_events)
     end
@@ -122,5 +139,25 @@ end
 
 post '/tasks' do
     current_user.tasks.create(event: params[:event], ymd: params[:ymd], category: params[:category])
+    redirect '/'
+end
+
+get '/:id/edit' do
+    @edid = params[:id]
+    @edevent = current_user.tasks.find_by(id: @edid)
+    erb :edit
+end
+
+post '/:id/edit' do
+    @edid = params[:id]
+    @edevent = current_user.tasks.find_by(id: @edid)
+    if params['action'] == '変更'
+        @edevent.event = params[:event]
+        @edevent.ymd = params[:ymd]
+        @edevent.category = params[:category]
+        @edevent.save
+    elsif params['action'] == '削除'
+        @edevent.delete
+    end
     redirect '/'
 end

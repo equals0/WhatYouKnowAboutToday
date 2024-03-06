@@ -4,27 +4,19 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>my calender</title>
+  <title>WhatYouKnowAboutToday</title>
 </head>
 <body>
  <div>
     <form action="/tasks" method="post">
-        <input type="text" name="event" placeholder="出来事"><br>
-        <input type="date" name="ymd" placeholder="年月日"><br>
+        <input type="text" name="event" placeholder="出来事" required><br>
+        <input type="date" name="ymd" required><br>
         <select name="category">
             <option value="nocategory">カテゴリなし</option>
-            <option value="personal">個人的記念日</option>
+            <option value="incident">出来事</option>
             <option value="birthday">誕生日</option>
             <option value="deathday">命日</option>
-            <option value="japan">日本史</option>
-            <option value="world">世界史</option>
-            <option value="study">学問史</option>
-            <option value="culture">文化史</option>
-            <option value="economy">経済史</option>
-            <option value="business">ビジネス</option>
-            <option value="politics">政治史</option>
-            <option value="military">軍事史</option>
-            <option value="sports">スポーツ</option>
+            <option value="personal">個人的記念日</option>
         </select><br>
         <input type="submit" value="登録">
     </form>

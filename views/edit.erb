@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatYouKnowAboutToday</title>
+</head>
+<body>
+<div>
+  <form action="/<%= @edid %>/edit" method="post">
+    <input type="text" name="event" placeholder="出来事" value="<%= @edevent.event %>" required><br>
+    <input type="date" name="ymd" value="<%= @edevent.ymd %>" required><br>
+    <select name="category">
+      <option value="nocategory">カテゴリなし</option>
+      <option value="incident">出来事</option>
+      <option value="birthday">誕生日</option>
+      <option value="deathday">命日</option>
+      <option value="personal">個人的記念日</option>
+    </select><br>
+    <input type="submit" name="action" value="変更">
+    <input type="submit" name="action" value="削除">
+  </form>
+</div>
+</body>
